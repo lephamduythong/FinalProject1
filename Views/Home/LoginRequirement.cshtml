@@ -1,0 +1,16 @@
+@{
+    Layout =  "~/Views/Shared/_Layout.cshtml";
+}
+
+@section myCss {
+    <link href="/css/loginrequirement.css" rel="stylesheet" />
+}
+
+<h1 class="hidden">Yêu cầu đăng nhập</h1>
+<div class="login-requirement">
+    Bạn cần phải đăng nhập để có thể xem được nội dung này
+    <br />
+    <a href="@Url.Action("Index","Home")">
+        <span class="btn btn-primary">Quay lại trang chủ</span>
+    </a>
+</div>

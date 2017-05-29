@@ -1,0 +1,26 @@
+﻿// ASP.NET Core MVC
+dotnet new web/mvc
+dotnet restore
+dotnet run
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+// EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package --version 1.1.0-msbuild3-final Microsoft.EntityFrameworkCore.Tools 
+<ItemGroup>
+    <DotNetCliToolReference
+        Include="Microsoft.EntityFrameworkCore.Tools.DotNet"
+        Version="1.0.0-msbuild3-final" />
+</ItemGroup>
+dotnet ef -h
+dotnet ef  migrations add <name_migration>
+dotnet ef database update
+
+// Webpack
+npm init
+npm install -g webpack
+npm install --save-dev babel-core babel-loader babel-preset-es2015 babel-preset-react es6-promise
+npm install --save webpack
+
+// Session
+dotnet add package Microsoft.Extensions.Caching.Memory

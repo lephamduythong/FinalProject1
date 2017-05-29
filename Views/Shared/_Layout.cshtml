@@ -1,0 +1,246 @@
+@using Microsoft.AspNetCore.Http;
+
+@using Final.Models
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Học và làm bài tập toán</title>
+    <!-- Bootstrap -->
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/lib/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+    <link href="/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="/css/mycss.css" rel="stylesheet">
+    <link href="/css/responsive.css" rel="stylesheet" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    @RenderSection("myCss",false)
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1 class="hidden">Phần đầu</h1>
+            <div class="row header-top">
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <a href="@Url.Action("Index","Home")">
+                        <img width="300" src="/images/logo2.png" alt="Logo" />
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-offset-2 col-sm-7 col-md-offset-4 col-md-5">
+                    <div class="login-register">
+                        <a href="@Url.Action("Index","HocSinhAuthentication")">
+                            <img src="/images/login-button.png" alt="Login" />
+                        </a>
+                        <a href="@Url.Action("Register","HocSinhAuthentication")">
+                            <img src="/images/register-button.png" alt="Register" />
+                        </a>
+                    </div>
+                    <div class="user">
+                        @if (Context.Session.GetString("HocSinhHoTen") != null)
+                        {
+                            @*WriteLiteral((Context.Session.Get("HocSinh"))[1]);*@
+                            WriteLiteral(Context.Session.GetString("HocSinhHoTen"));
+                            <a href="@Url.Action("Logout","HocSinhAuthentication")">
+                                <span class="glyphicon glyphicon-log-out"></span>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <nav>
+                <h1 class="hidden">Menu</h1>
+                <div class="nav-menu1">
+                    <div>
+                        <ul class="nav nav-pills">
+                            <li id="nav_grade" style="border-radius: 50px;" role="presentation" class="dropdown col-xs-12 col-md-4">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <img width="32" height="32" src="/images/cap_32.png" alt="Cap" /> Lớp học <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="@Url.Action("BaiHoc","Home",new {lopId = 1})">Lớp 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("BaiHoc","Home",new {lopId = 2})">Lớp 2</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("BaiHoc","Home",new {lopId = 3})">Lớp 3</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("BaiHoc","Home",new {lopId = 4})">Lớp 4</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("BaiHoc","Home",new {lopId = 5})">Lớp 5</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            @*<li id="nav_exercise" style="border-radius: 50px;" role="presentation" class="dropdown col-xs-12 col-md-4">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <img width="32" height="32" src="/images/homework.png" alt="Cap" /> Bài tập <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="@Url.Action("BaiHoc","Home",new {lopId = 1})">Lớp 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("BaiHoc","Home",new {lopId = 2})">Lớp 2</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("BaiHoc","Home",new {lopId = 3})">Lớp 3</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("BaiHoc","Home",new {lopId = 4})">Lớp 4</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("BaiHoc","Home",new {lopId = 5})">Lớp 5</a>
+                                    </li>
+                                </ul>
+                            </li>*@
+                            <li class="col-xs-12 col-md-4" role="presentation">
+                                <a href="#">
+                                    <img width="32" height="32" src="/images/owl.png" alt="Cap" /> Giới thiệu
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="nav-menu2">
+                <div class="row">
+                    <div class="hidden-xs hidden-sm">
+                            <img src="/images/chick.svg" alt="Chick" />
+                            <img src="/images/pig.svg" alt="Pig" />
+                            <img src="/images/cat.svg" alt="Cat" />
+                            <img src="/images/fox.svg" alt="Fox" />
+                            <img src="/images/tiger.svg" alt="Tiger" />
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <section class="main-section">
+            @RenderBody()
+        </section>
+    </div>
+    <br />
+    <footer class="row">
+        <div class="col-xs-12 col-sm-4">
+            <ul class="footer-nav">
+                <li>
+                    <a href="#">Lớp 1</a>
+                </li>
+                <li>
+                    <a href="#">Lớp 2</a>
+                </li>
+                <li>
+                    <a href="#">Lớp 3</a>
+                </li>
+                <li>
+                    <a href="#">Lớp 4</a>
+                </li>
+                <li>
+                    <a href="#">Lớp 5</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <div class="footer-address">
+                Số 19, Đường Nguyễn Hữu Thọ, Phường Tân Phong, Quận 7, TP. Hồ Chí Minh.
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <div class="footer-contact">
+                <a href="#">
+                    <i style="color: blue; font-size: 400%;" class="fa fa-facebook-square" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/js/user/myjs.js"></script>
+    @RenderSection("myJs", false)
+</body>
+</html>
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - webpack</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">webpack</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        
+        @RenderBody()
+        
+        <hr />
+        <footer>
+            <p>&copy; 2017 - webpack</p>
+        </footer>
+    </div>
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>-->

@@ -1,0 +1,98 @@
+@using Microsoft.AspNetCore.Http;
+@using Final.Models;
+@model List<Final.Models.BaiTap>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section myCss {
+    <link href="/css/new_input.css" rel="stylesheet" />
+    <link href="/css/baitap.css" rel="stylesheet" />
+}
+
+<h1 class="hidden">Nội dung bài học</h1>
+<!--<ol class="breadcrumb">
+    <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+    <li><a href="@Url.Action("BaiHoc","Home",new {lopId = ViewBag.LopId})">Lớp @ViewBag.LopId</a></li>
+    <li><a href="@Url.Action("BaiTap","Home",new {baiHocId = ViewBag.baiHocId})">@ViewBag.TenHoc</a></li>
+</ol>-->
+<div class="row">
+    <div class="col-xs-12 col-sm-3 col-sm-push-9">
+        @if (Context.Session.GetInt32("HocSinh") != null)
+        {
+            <div class="well">
+                <div class="avatar">
+                    <img width="64" src="/Images/fox.svg" alt="Avatar" />
+                </div>
+                <div style="color: red; text-align: center; font-weight: bold; font-size: 125%; margin: 5px 0 5px 0">
+                    Trẻ trâu
+                </div>
+                <div>
+                    Hoàn thành
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                        <span class="sr-only">45% Complete</span>
+                    </div>
+                </div>
+                <div>
+
+                </div>
+            </div>
+        }
+        <div>
+            <img src="/images/ad/ad.png" class="img-responsive" />
+            @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- AdTest -->
+                <ins class="adsbygoogle"
+                     style="display: block"
+                     data-ad-client="ca-pub-5190118737577536"
+                     data-ad-slot="7539014809"
+                     data-ad-format="auto"></ins>
+                <script>
+                    google_adtest = 'on';
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>*@
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-9 col-sm-pull-3" >
+        <div class="modal-content">
+            <h2>Danh sách bài tập</h2>
+            <div class="container-fluid">
+                @foreach (var baiTap in Model)
+                {
+                    <article>
+                        <h3>
+                            <a href="@Url.Action("BaiTapChiTiet",new {baiTapId = baiTap.BaiTapId})">
+                                @baiTap.Ten
+                            </a>
+                        </h3>
+                        @if ( Context.Session.GetInt32("HocSinhId") != null)
+                        {
+                            CoSoDuLieu csdl = new CoSoDuLieu();
+                            var score = 0;
+                            var idHocSinh = Context.Session.GetInt32("HocSinhId");
+                            if (csdl.HocSinhBaiTaps.Any(h => h.HocSinhId == idHocSinh && h.BaiTapId == baiTap.BaiTapId))
+                            {
+                                var foundScoreRow = csdl.HocSinhBaiTaps.First(h => h.HocSinhId == idHocSinh && h.BaiTapId == baiTap.BaiTapId);
+                                score = foundScoreRow.HoanThanh;
+                            }
+                            
+                            
+                            <div class="progress">
+                                <div class="progress-bar active" role="progressbar" aria-valuenow="@score" aria-valuemin="0" aria-valuemax="100" style="width: @score%">
+                                    
+                                </div>
+                            </div>
+                        }
+                    </article>   
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section myJs {
+    
+}

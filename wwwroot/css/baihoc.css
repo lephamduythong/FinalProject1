@@ -1,0 +1,44 @@
+﻿.modal-content {
+    padding: 15px;
+}
+
+.chuong h2 {
+    font-size: 125%;
+    color: crimson;
+}
+
+.chuong h3 {
+    font-size: 100%;
+    color: #005A31;
+}
+
+.avatar {
+    width: 64px;
+    height: 64px;
+    border: solid black 1px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.commentBox {
+    background-color: white;
+    padding: 10px;
+}
+
+.comment-wrapper {
+    border: solid grey 1px;
+    padding: 5px;
+}
+
+.comment-wrapper:not(:first-child) {
+    margin-top: 10px;
+}
+
+.author {
+    font-weight: bold;
+}
+
+.writeComment-wrapper {
+    margin-top: 10px;
+}

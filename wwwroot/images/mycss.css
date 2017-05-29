@@ -1,0 +1,10 @@
+﻿.nav-menu {
+    height: 50px;
+    border-radius: 10px;
+    background-color: crimson;
+}
+
+.nav-menu>div {
+    border: dashed 1px white;
+    border-radius: 10px;
+}

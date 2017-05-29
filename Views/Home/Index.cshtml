@@ -1,0 +1,138 @@
+@using Microsoft.AspNetCore.Http;
+@using Final.Models
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Medals = new string[3] { "gold-medal.png", "silver-medal.png", "bronze-medal.png" };
+}
+
+@section myCss {
+    <link href="/css/home.css" rel="stylesheet" />
+}
+
+<h1 class="hidden">Phần nội dung</h1>
+<div class="modal-content">
+    <div class="container-fluid">
+        <div class="row">
+            <section class="col-xs-12 col-md-6">
+                <div class="noi-dung-section">
+                    <h2 style="text-align: center;">Bảng vàng <i style="color: orangered" class="fa fa-star-o" aria-hidden="true"></i></h2>
+                    <hr />
+                    <div id="test"></div>
+                    <div id="grade_select_home" class="btn-group-justified">
+
+                        <a class="btn btn-default btn-warning">Lớp 1</a>
+
+                        <a class="btn btn-default">Lớp 2</a>
+
+                        <a class="btn btn-default">Lớp 3</a>
+
+                        <a class="btn btn-default">Lớp 4</a>
+
+                        <a class="btn btn-default">Lớp 5</a>
+
+                    </div>
+                    <div id="bxh_show_home">
+                        @for (int i = 1; i <= 5; i++)
+{
+    <div class="bxh_home_content hidden">
+        @foreach (string medal in ViewBag.Medals)
+        {
+            <div class="bxh_home_item">
+                <div class="bxh_detail">
+                    <div class="bxh_detail">
+                        <table>
+                            <tr>
+                                <td rowspan="4">
+                                    <img width="50" src="/images/@medal" alt="Gold medal" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="medal_detail" style="color: #dd5555; font-size: 125%;">Nguyễn Tâm Như</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="medal_detail" style="color: #92a1bc; font-weight: normal">Lớp 3 - Trường Tiểu học Long Trạch 1, Long An</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="medal_detail">Điểm TB: 100</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+                    </div>
+                </div>
+            </section>
+            <section class="col-xs-12 col-md-6">
+                <div class="noi-dung-section">
+                    <h2 style="text-align: center;">Hướng dẫn <i class="fa fa-question-circle" aria-hidden="true"></i></h2>
+                    <hr />
+                    <div>
+                        <h3><img src="/Images/guide.png" alt="guide" /> Hướng dẫn đăng ký</h3>
+                        <h3><img src="/Images/guide.png" alt="guide" /> Hướng dẫn thanh toán</h3>
+                        <h3><img src="/Images/guide.png" alt="guide" /> Hướng dẫn học</h3>
+                        <h3><img src="/Images/guide.png" alt="guide" /> Hướng dẫn làm bài tập</h3>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<br />
+<div class="modal-content">
+    <div class="container-fluid">
+        <div class="row">
+            <section class="col-xs-12 col-md-8">
+                <div class="noi-dung-section">
+                    <h2 style="text-align: center">
+                        <a href="@Url.Action("ToanVuiMoiNgay","Home")">
+                            Toán vui mỗi ngày
+                            <i style="color: orangered" class="fa fa-star-o" aria-hidden="true"></i>
+                        </a>
+                    </h2>
+                    <hr />
+                    <div class="toanvuimoingay-content">
+                        @foreach (var toanVuiMoiNgay in (List<ToanVuiMoiNgay>)ViewBag.ListToanVuiMoiNgay)
+                        {
+                            <a href="@Url.Action("ToanVuiMoiNgayChiTiet","Home",new { toanVuiMoiNgayId = toanVuiMoiNgay.ToanVuiMoiNgayId})">
+                                <div class="toanvuimoingay-title">
+                                    @toanVuiMoiNgay.Ten
+                                </div>
+                            </a>
+                        }
+                    </div>
+                    <h2 style="text-align: center">
+                        Học mà vui
+                    </h2>
+                    <hr />
+                    <div class="hocmavui-content">
+                        @foreach (var hocMaVui in (List<HocMaVui>)ViewBag.ListHocMaVui)
+                        {
+                            <a href="@Url.Action("HocMaVuiChiTiet", "Home", new {hocMaVuiId = hocMaVui.HocMaVuiId})">
+                                <div class="hocmavui-title">
+                                    @hocMaVui.Ten
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </section>
+            <section class="col-xs-12 col-md-4">
+                <div class="noi-dung-section">
+                    <h2 style="text-align: center;">Nhà tài trợ <i class="fa fa-question-circle" aria-hidden="true"></i></h2>
+                    <hr />
+                    <img width="256" src="/Images/asp.net-border.png" class="img-responsive" alt="Asp.Net">
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

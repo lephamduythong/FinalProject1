@@ -1,0 +1,32 @@
+.agent-image img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+#exerciseBox {
+    padding: 0;
+}
+
+.excerciseBox-wrapper {
+    background-color: #441626;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.answers {
+    padding: 10px 0 10px 0;
+}
+
+.exercise-buttons {
+    width: 100%;
+}
+
+#ex-prev {
+    float: left;
+}
+
+#ex-next {
+    float: right;
+}

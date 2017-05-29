@@ -1,0 +1,8 @@
+E:\LESSON\FinalProject\bin\Debug\netcoreapp1.1\FinalProject.deps.json
+E:\LESSON\FinalProject\bin\Debug\netcoreapp1.1\FinalProject.runtimeconfig.json
+E:\LESSON\FinalProject\bin\Debug\netcoreapp1.1\FinalProject.runtimeconfig.dev.json
+E:\LESSON\FinalProject\obj\Debug\netcoreapp1.1\FinalProject.AssemblyInfo.cs
+E:\LESSON\FinalProject\bin\Debug\netcoreapp1.1\FinalProject.dll
+E:\LESSON\FinalProject\bin\Debug\netcoreapp1.1\FinalProject.pdb
+E:\LESSON\FinalProject\obj\Debug\netcoreapp1.1\FinalProject.dll
+E:\LESSON\FinalProject\obj\Debug\netcoreapp1.1\FinalProject.pdb
