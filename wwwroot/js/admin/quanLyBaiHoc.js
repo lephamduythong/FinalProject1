@@ -34510,7 +34510,28 @@ var QuanLyChuong = function (_React$Component) {
             // let randomId = Math.floor((Math.random() * 100) + 20);
             // console.log(randomId);
             var thisCom = this;
-            _jquery2.default.post('/Admin/QuanLyBaiHoc', { code: 5, __RequestVerificationToken: _TOKEN, idLop: lop, ten: this.refs.txtThemChuong.value }, function (data) {
+            var txtThemChuong = '';
+            switch (lop) {
+                case 1:
+                    txtThemChuong = this.refs.txtThemChuong1;
+                    break;
+                case 2:
+                    txtThemChuong = this.refs.txtThemChuong2;
+                    break;
+                case 3:
+                    txtThemChuong = this.refs.txtThemChuong3;
+                    break;
+                case 4:
+                    txtThemChuong = this.refs.txtThemChuong4;
+                    break;
+                case 5:
+                    txtThemChuong = this.refs.txtThemChuong5;
+                    break;
+                default:
+                    break;
+            }
+
+            _jquery2.default.post('/Admin/QuanLyBaiHoc', { code: 5, __RequestVerificationToken: _TOKEN, idLop: lop, ten: txtThemChuong.value }, function (data) {
                 console.log(data);
                 // data: last id inserted
                 switch (lop) {
@@ -34583,13 +34604,13 @@ var QuanLyChuong = function (_React$Component) {
                         null,
                         'L\u1EDBp 1'
                     ),
-                    _react2.default.createElement('input', { type: 'text', ref: 'txtThemChuong' }),
+                    _react2.default.createElement('input', { type: 'text', ref: 'txtThemChuong1' }),
                     _react2.default.createElement(
                         'button',
                         { className: 'btn btn-primary', onClick: function onClick() {
                                 return _this2.add(1);
                             } },
-                        'Th\xEAm'
+                        'Th\xEAm m\u1ED9t ch\u01B0\u01A1ng'
                     ),
                     _react2.default.createElement(
                         _reactAddonsCssTransitionGroup2.default,
@@ -34612,12 +34633,13 @@ var QuanLyChuong = function (_React$Component) {
                         null,
                         'L\u1EDBp 2'
                     ),
+                    _react2.default.createElement('input', { type: 'text', ref: 'txtThemChuong2' }),
                     _react2.default.createElement(
                         'button',
                         { className: 'btn btn-primary', onClick: function onClick() {
                                 return _this2.add(2);
                             } },
-                        'Th\xEAm'
+                        'Th\xEAm m\u1ED9t ch\u01B0\u01A1ng'
                     ),
                     _react2.default.createElement(
                         _reactAddonsCssTransitionGroup2.default,
@@ -34643,12 +34665,13 @@ var QuanLyChuong = function (_React$Component) {
                         null,
                         'L\u1EDBp 3'
                     ),
+                    _react2.default.createElement('input', { type: 'text', ref: 'txtThemChuong3' }),
                     _react2.default.createElement(
                         'button',
                         { className: 'btn btn-primary', onClick: function onClick() {
-                                return _this2.add(2);
+                                return _this2.add(3);
                             } },
-                        'Th\xEAm'
+                        'Th\xEAm m\u1ED9t ch\u01B0\u01A1ng'
                     ),
                     _react2.default.createElement(
                         _reactAddonsCssTransitionGroup2.default,
@@ -34921,7 +34944,7 @@ var BaiTap = function (_React$Component4) {
             if (!this.state.loaded) {
                 var thisCom = this;
                 _jquery2.default.post('/Admin/QuanLyBaiTap', { code: 1, __RequestVerificationToken: _TOKEN, idBaiTap: this.props.idBaiTap }, function (data) {
-                    // console.log(data);
+                    console.log(data);
                     thisCom.setState({ ten: data.ten, idListCauHoi: data.idListCauHoi });
                 });
             }
@@ -34937,8 +34960,8 @@ var BaiTap = function (_React$Component4) {
         value: function addQuestion() {
             var thisCom = this;
             _jquery2.default.post('/Admin/QuanLyBaiTap', { code: 6, __RequestVerificationToken: _TOKEN, idBaiTap: this.props.idBaiTap }, function (data) {
-                console.log(data);
-                console.log(thisCom.state.idListCauHoi);
+                // console.log(data);
+                // console.log(thisCom.state.idListCauHoi);
                 thisCom.state.idListCauHoi.unshift({ id: parseInt(data) });
                 thisCom.setState({ idListCauHoi: thisCom.state.idListCauHoi });
             });
@@ -34968,17 +34991,17 @@ var BaiTap = function (_React$Component4) {
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'baiTap-wrapper' },
                 this.state.showContent ? _react2.default.createElement(
                     'button',
                     { className: 'btn btn-primary', onClick: this.hide.bind(this) },
                     '\u1EA8n chi ti\u1EBFt b\xE0i t\u1EADp ',
-                    this.props.idBaiTap
+                    this.state.ten
                 ) : _react2.default.createElement(
                     'button',
                     { className: 'btn btn-primary', onClick: this.show.bind(this) },
                     'Hi\u1EC7n chi ti\u1EBFt b\xE0i t\u1EADp ',
-                    this.props.idBaiTap
+                    this.state.ten
                 ),
                 this.state.showContent ? _react2.default.createElement(
                     'div',
@@ -35403,7 +35426,7 @@ var BaiHocChiTiet = function (_React$Component6) {
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'chiTietBaiHoc-wrapper' },
                 !this.state.showContent ? _react2.default.createElement(
                     'button',
                     { className: 'btn btn-primary', onClick: function onClick() {
@@ -35417,7 +35440,7 @@ var BaiHocChiTiet = function (_React$Component6) {
                         } },
                     '\u1EA8n chi ti\u1EBFt b\xE0i h\u1ECDc'
                 ),
-                this.state.showContent ? !this.state.editMode ? _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: this.state.noidung } }) : _react2.default.createElement('textarea', { defaultValue: this.state.noidung, name: 'editor' + this.props.idBaiHoc, id: 'editor' + this.props.idBaiHoc }) : "",
+                this.state.showContent ? !this.state.editMode ? _react2.default.createElement('div', { className: 'noiDungBaiHoc', dangerouslySetInnerHTML: { __html: this.state.noidung } }) : _react2.default.createElement('textarea', { defaultValue: this.state.noidung, name: 'editor' + this.props.idBaiHoc, id: 'editor' + this.props.idBaiHoc }) : "",
                 this.state.showContent ? !this.state.editMode ? _react2.default.createElement(
                     'button',
                     { className: 'btn btn-primary', onClick: this.editEnter.bind(this) },

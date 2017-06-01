@@ -12,8 +12,9 @@ dotnet add package --version 1.1.0-msbuild3-final Microsoft.EntityFrameworkCore.
         Include="Microsoft.EntityFrameworkCore.Tools.DotNet"
         Version="1.0.0-msbuild3-final" />
 </ItemGroup>
+
 dotnet ef -h
-dotnet ef  migrations add <name_migration>
+dotnet ef migrations add <name_migration>
 dotnet ef database update
 
 // Webpack

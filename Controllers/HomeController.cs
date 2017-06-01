@@ -20,10 +20,7 @@ namespace Final.Controllers
                 .OrderBy(t => t.Order)
                 .Take(2)
                 .ToList();
-            ViewBag.ListHocMaVui = csdl.HocMaVuis
-                .OrderBy(t => t.Order)
-                .Take(2)
-                .ToList();
+
             return View("Index");
         }
         public IActionResult BaiHoc(int lopId = 0)
@@ -35,6 +32,7 @@ namespace Final.Controllers
                 .Where(c => c.LopId == lopId).ToList()
                 .Select(c => new Chuong()
                 {
+                    ChuongId = c.ChuongId,
                     Ten = c.Ten,
                     BaiHocs = csdl.BaiHocs
                         .Where(b => b.ChuongId == c.ChuongId)
@@ -118,24 +116,6 @@ namespace Final.Controllers
             var toanVuiMoiNgayChiTiet = csdl.ToanVuiMoiNgays.Find(toanVuiMoiNgayId);
             return View(toanVuiMoiNgayChiTiet);
         }
-
-        public IActionResult HocMaVui()
-        {
-            var danhSach = csdl.HocMaVuis
-                .Where(h => h.Hide == 0)
-                .OrderBy(t => t.Order)
-                .Take(10)
-                .ToList();
-            return View(danhSach);
-        }
-
-        public IActionResult HocMaVuiChiTiet(int hocMaVuiId)
-        {
-            var hocMaVuiChiTiet = csdl.HocMaVuis.Find(hocMaVuiId);
-            return View(hocMaVuiChiTiet);
-        }
-
-       
 
         // -------------------------- Static pages
         public IActionResult GioiThieu()

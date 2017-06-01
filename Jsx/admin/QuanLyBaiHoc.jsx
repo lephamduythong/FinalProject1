@@ -22,7 +22,28 @@ export default class QuanLyChuong extends React.Component {
         // let randomId = Math.floor((Math.random() * 100) + 20);
         // console.log(randomId);
         let thisCom = this;
-        $.post('/Admin/QuanLyBaiHoc', { code: 5, __RequestVerificationToken: _TOKEN, idLop: lop, ten: this.refs.txtThemChuong.value }, function (data) {
+        let txtThemChuong = '';
+        switch (lop) {
+            case 1:
+                txtThemChuong = this.refs.txtThemChuong1;
+                break;
+            case 2:
+                txtThemChuong = this.refs.txtThemChuong2;
+                break;
+            case 3:
+                txtThemChuong = this.refs.txtThemChuong3;
+                break;
+            case 4:
+                txtThemChuong = this.refs.txtThemChuong4;
+                break;
+            case 5:
+                txtThemChuong = this.refs.txtThemChuong5;
+                break;
+            default:
+                break;
+        }
+
+        $.post('/Admin/QuanLyBaiHoc', { code: 5, __RequestVerificationToken: _TOKEN, idLop: lop, ten: txtThemChuong.value }, function (data) {
             console.log(data);
             // data: last id inserted
             switch (lop) {
@@ -85,8 +106,8 @@ export default class QuanLyChuong extends React.Component {
             <div>
                 <div className="lop-wrapper">
                     <h2>Lớp 1</h2>
-                    <input type="text" ref="txtThemChuong" />
-                    <button className="btn btn-primary" onClick={() => this.add(1)}>Thêm</button>
+                    <input type="text" ref="txtThemChuong1" />
+                    <button className="btn btn-primary" onClick={() => this.add(1)}>Thêm một chương</button>
                     <ReactCSSTransitionGroup transitionName="slide"
                         transitionEnterTimeout={500}
                         transitionLeaveTimeout={500}>
@@ -98,13 +119,13 @@ export default class QuanLyChuong extends React.Component {
                                     delete={this.delete} />)
                             })
                         }
-
                     </ReactCSSTransitionGroup>
                 </div>
 
                 <div className="lop-wrapper">
                     <h2>Lớp 2</h2>
-                    <button className="btn btn-primary" onClick={() => this.add(2)}>Thêm</button>
+                    <input type="text" ref="txtThemChuong2" />
+                    <button className="btn btn-primary" onClick={() => this.add(2)}>Thêm một chương</button>
                     <ReactCSSTransitionGroup
                         transitionName="fade"
                         transitionEnterTimeout={500}
@@ -122,7 +143,8 @@ export default class QuanLyChuong extends React.Component {
 
                 <div className="lop-wrapper">
                     <h2>Lớp 3</h2>
-                    <button className="btn btn-primary" onClick={() => this.add(2)}>Thêm</button>
+                    <input type="text" ref="txtThemChuong3" />
+                    <button className="btn btn-primary" onClick={() => this.add(3)}>Thêm một chương</button>
                     <ReactCSSTransitionGroup
                         transitionName="fade"
                         transitionEnterTimeout={500}
@@ -317,7 +339,7 @@ class BaiTap extends React.Component {
         if (!this.state.loaded) {
             let thisCom = this;
             $.post('/Admin/QuanLyBaiTap', { code: 1, __RequestVerificationToken: _TOKEN, idBaiTap: this.props.idBaiTap }, function (data) {
-                // console.log(data);
+                console.log(data);
                 thisCom.setState({ ten: data.ten, idListCauHoi: data.idListCauHoi });
             });
         }
@@ -331,8 +353,8 @@ class BaiTap extends React.Component {
     addQuestion() {
         let thisCom = this;
         $.post('/Admin/QuanLyBaiTap', { code: 6, __RequestVerificationToken: _TOKEN, idBaiTap: this.props.idBaiTap }, function (data) {
-            console.log(data);
-            console.log(thisCom.state.idListCauHoi);
+            // console.log(data);
+            // console.log(thisCom.state.idListCauHoi);
             thisCom.state.idListCauHoi.unshift({id: parseInt(data)});
             thisCom.setState({idListCauHoi: thisCom.state.idListCauHoi});
         });
@@ -357,13 +379,13 @@ class BaiTap extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="baiTap-wrapper">
                 {
                     this.state.showContent
                     ?
-                    <button className="btn btn-primary" onClick={this.hide.bind(this)}>Ẩn chi tiết bài tập {this.props.idBaiTap}</button>
+                    <button className="btn btn-primary" onClick={this.hide.bind(this)}>Ẩn chi tiết bài tập {this.state.ten}</button>
                     :
-                    <button className="btn btn-primary" onClick={this.show.bind(this)}>Hiện chi tiết bài tập {this.props.idBaiTap}</button>
+                    <button className="btn btn-primary" onClick={this.show.bind(this)}>Hiện chi tiết bài tập {this.state.ten}</button>
                 }
                 {
                     this.state.showContent
@@ -681,7 +703,7 @@ class BaiHocChiTiet extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="chiTietBaiHoc-wrapper">
                 {
                     !this.state.showContent
                         ?
@@ -694,7 +716,7 @@ class BaiHocChiTiet extends React.Component {
                         (
                             !this.state.editMode
                                 ?
-                                <div dangerouslySetInnerHTML={{ __html: this.state.noidung }}>
+                                <div className="noiDungBaiHoc" dangerouslySetInnerHTML={{ __html: this.state.noidung }}>
                                 </div>
                                 :
                                 <textarea defaultValue={this.state.noidung} name={'editor' + this.props.idBaiHoc} id={'editor' + this.props.idBaiHoc}>

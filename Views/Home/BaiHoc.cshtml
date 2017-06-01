@@ -60,10 +60,13 @@
             <div class="container-fluid">
                 @foreach (var chuong in Model)
                 {
-                    <article class="row">
-                        <h2>
-                            @chuong.Ten
-                        </h2>
+                    <article>
+                        <div class="panel-heading">
+                            <h2>
+                                <a data-toggle="collapse" href="#collapse_@chuong.ChuongId" > @chuong.Ten </a> 
+                            </h2>
+                        </div>
+                        <div id="collapse_@chuong.ChuongId" class="panel-collapse collapse">
                         @foreach (var baiHoc in chuong.BaiHocs)
                         {
                             <section class="col-xs-12 col-sm-6">
@@ -107,7 +110,9 @@
                                 }
                             </section>
                         }
+                        </div>
                     </article>
+                    <div class="clearfix"></div>
                 }
                 <div>
                     <a name="point" > </a>

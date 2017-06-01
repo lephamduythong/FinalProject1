@@ -8,9 +8,10 @@ using Final.Models;
 namespace FinalProject.Migrations
 {
     [DbContext(typeof(CoSoDuLieu))]
-    partial class CoSoDuLieuModelSnapshot : ModelSnapshot
+    [Migration("20170601103906_Change1")]
+    partial class Change1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

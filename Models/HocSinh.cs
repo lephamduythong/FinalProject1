@@ -13,15 +13,15 @@ namespace Final.Models
     {
         [Key]
         public int HocSinhId { get; set; }
-        [Required]
+        [Required(ErrorMessage="Vui lòng không bỏ trống")]
         [RegularExpression(@"^[_a-z0-9-]+(.[a-z0-9-]+)@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$",
             ErrorMessage="Vui lòng nhập đúng email")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage="Vui lòng không bỏ trống")]
         [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$",
         ErrorMessage="Vui lòng nhập mật khẩu ít nhất 8 kí tự, 1 ký tự hoa và một 1 ký tự là số")]
         public string Password { get; set; }
-        [Required]
+        [Required(ErrorMessage="Vui lòng không bỏ trống")]
         public string HoTen { get; set; }
         public DateTime NgaySinh { get; set; }
         public string Hinh { get; set; }

@@ -11,6 +11,12 @@
         .errorMessage {
             color: red;
         }
+        .bordered-avatar {
+            border: solid crimson 1px;
+        }
+        .avatar-choosing {
+            margin: 10px 0 10px 0;
+        }
     </style>
 }
 
@@ -23,22 +29,46 @@
         <div class="cols-xs-12 col-sm-6">
             <form action="@Url.Action("Register")" method="post">
                 <div class="form-group">
-                    <label for="">Email đăng nhập: </label>
+                    <label for="">Email đăng nhập: *</label>
                     <!--<input name="Email" type="text" class="form-control" />-->
                     @Html.TextBoxFor(model => model.Email, new {@class = "form-control"})
                     @Html.ValidationMessageFor(model => model.Email, String.Empty ,new { @class =  "errorMessage"})
                 </div>
                 <div class="form-group">
-                    <label for="">Mật khẩu: </label>
+                    <label for="">Mật khẩu: *</label>
                     @Html.TextBoxFor(model => model.Password, new {@class =  "form-control"})
                     @Html.ValidationMessageFor(model => model.Password, String.Empty, new {@class = "errorMessage"})
                     <!--<input name="Password" type="text" class="form-control" />-->
                 </div>
-                <div style="color: red; font-size:125%;">
-                    @ViewBag.Error
+                <div class="form-group">
+                    <label for="">Nhập lại mật khẩu: *</label>
+                    <input type="text" class="form-control" name="ConfirmPassword" />
+                    <div style="color: red; font-size:125%;">
+                        @ViewData["ConfirmPasswordError"]
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Họ tên: *</label>
+                    @Html.TextBoxFor(model => model.HoTen, new {@class =  "form-control"})
+                </div>
+                <div class="form-group">
+                    <label for="">Ngày sinh: </label>
+                    <input class="form-control" type="date" name="NgaySinh" />
+                </div>
+                <div style="color: red;">
+                    @ViewData["NgaySinhError"]
+                </div>
+                <div>
+                    <p style="font-weight: bold;">Chọn một ảnh đại diện:</p>
+                    <div class="avatar-choosing">
+                        <img id="ava_1" class="bordered-avatar" src="/images/sample_avatars/1.png" alt="1.png" />
+                        <img id="ava2" src="/images/sample_avatars/2.png" alt="2.png" />
+                        <img id="ava3" src="/images/sample_avatars/3.png" alt="3.png" />
+                        <img id="ava4" src="/images/sample_avatars/4.png" alt="4.png" />                        
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">
-                    Đăng nhập
+                    Đăng ký
                 </button>
             </form>
         </div>
@@ -47,3 +77,13 @@
         </div>
     </div>
 </div>
+
+@section myJs {
+    <script>
+        $(document).ready(function(){
+            $('.avatar-choosing img').click(function() {
+                alert('clgt');
+            });
+        });
+    </script>
+}

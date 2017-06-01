@@ -16,7 +16,6 @@ namespace Final.Models
         public DbSet<HocPhi> HocPhis { get; set; }
         public DbSet<CauHoi> CauHois { get; set; }
         public DbSet<ToanVuiMoiNgay> ToanVuiMoiNgays { get; set; }
-        public DbSet<HocMaVui> HocMaVuis { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=DoAn1_Ver2;Trusted_Connection=True;MultipleActiveResultSets=true");

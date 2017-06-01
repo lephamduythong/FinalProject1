@@ -25,6 +25,8 @@ namespace Final.Controllers
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
+            HttpContext.Session.Clear();
+
             if (csdl.HocSinhs.Any(h => h.Email.Equals(email) && h.Password.Equals(password)))
             {
                 var hocSinhFound = csdl.HocSinhs.First(h => h.Email.Equals(email) && h.Password.Equals(password));
@@ -55,15 +57,35 @@ namespace Final.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(HocSinh hocSinh)
+        public IActionResult Register(HocSinh hocSinh, string confirmPassword)
         {
+            HttpContext.Session.Clear();
+
             if (ModelState.IsValid)
             {
+                if (DateTime.Compare(hocSinh.NgaySinh, DateTime.Now.AddYears(-5)) == 1)
+                {
+                    ViewData["NgaySinhError"] = "Chỉ chấp nhận học sinh từ 5 tuổi trở lên ngày sinh không được vượt quá hiện tại";
+                }
+                if (!hocSinh.Password.Equals(confirmPassword))
+                {
+                    ViewData["ConfirmPasswordError"] = "Mật khẩu nhập lại không khớp";
+                }
                 csdl.HocSinhs.Add(hocSinh);
                 csdl.SaveChanges();
                 return RedirectToAction("Index");
             }
-            
+
+            if (!hocSinh.Password.Equals(confirmPassword))
+            {
+                ViewData["ConfirmPasswordError"] = "Mật khẩu nhập lại không khớp";
+            }
+
+            if (DateTime.Compare(hocSinh.NgaySinh, DateTime.Now.AddYears(-5)) == 1)
+            {
+                ViewData["NgaySinhError"] = "Chỉ chấp nhận học sinh từ 5 tuổi trở lên ngày sinh không được vượt quá hiện tại";
+            }
+
             return View(hocSinh);
         }
 

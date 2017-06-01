@@ -37,38 +37,38 @@
                     </div>
                     <div id="bxh_show_home">
                         @for (int i = 1; i <= 5; i++)
-{
-    <div class="bxh_home_content hidden">
-        @foreach (string medal in ViewBag.Medals)
-        {
-            <div class="bxh_home_item">
-                <div class="bxh_detail">
-                    <div class="bxh_detail">
-                        <table>
-                            <tr>
-                                <td rowspan="4">
-                                    <img width="50" src="/images/@medal" alt="Gold medal" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td class="medal_detail" style="color: #dd5555; font-size: 125%;">Nguyễn Tâm Như</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td class="medal_detail" style="color: #92a1bc; font-weight: normal">Lớp 3 - Trường Tiểu học Long Trạch 1, Long An</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td class="medal_detail">Điểm TB: 100</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-}
+                        {
+                            <div class="bxh_home_content hidden">
+                                @foreach (string medal in ViewBag.Medals)
+                                {
+                                    <div class="bxh_home_item">
+                                        <div class="bxh_detail">
+                                            <div class="bxh_detail">
+                                                <table>
+                                                    <tr>
+                                                        <td rowspan="4">
+                                                            <img width="50" src="/images/@medal" alt="Gold medal" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td class="medal_detail" style="color: #dd5555; font-size: 125%;">Nguyễn Tâm Như</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td class="medal_detail" style="color: #92a1bc; font-weight: normal">Lớp 3 - Trường Tiểu học Long Trạch 1, Long An</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td class="medal_detail">Điểm TB: 100</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
                     </div>
                 </div>
             </section>
@@ -106,20 +106,6 @@
                             <a href="@Url.Action("ToanVuiMoiNgayChiTiet","Home",new { toanVuiMoiNgayId = toanVuiMoiNgay.ToanVuiMoiNgayId})">
                                 <div class="toanvuimoingay-title">
                                     @toanVuiMoiNgay.Ten
-                                </div>
-                            </a>
-                        }
-                    </div>
-                    <h2 style="text-align: center">
-                        Học mà vui
-                    </h2>
-                    <hr />
-                    <div class="hocmavui-content">
-                        @foreach (var hocMaVui in (List<HocMaVui>)ViewBag.ListHocMaVui)
-                        {
-                            <a href="@Url.Action("HocMaVuiChiTiet", "Home", new {hocMaVuiId = hocMaVui.HocMaVuiId})">
-                                <div class="hocmavui-title">
-                                    @hocMaVui.Ten
                                 </div>
                             </a>
                         }

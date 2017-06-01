@@ -12,13 +12,19 @@ namespace Final.Controllers
     { 
         CoSoDuLieu csdl = new CoSoDuLieu();
         // GET: Admin/Post
-        public ActionResult Index()
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult QuanLyBaiHoc()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult QuanLyBaiHoc(IFormCollection collection)
+        public IActionResult QuanLyBaiHoc(IFormCollection collection)
         {
             int code = Convert.ToInt16(collection["code"]);
             if (code == 1)
