@@ -1,0 +1,24 @@
+@using Microsoft.AspNetCore.Http;
+@using Final.Models
+@model ToanVuiMoiNgay
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section myCss {
+    <style>
+        .toanvuimoingay-title {
+            font-size: 32px;
+        }
+    </style>
+}
+
+<div class="modal-content">
+    <div class="container-fluid">
+        <div class="toanvuimoingay-title">
+            @Model.Ten
+        </div class="toanvuimoingay-content">
+            @Html.Raw(Model.NoiDung)
+        </div>
+    </div>
+</div>

@@ -12,8 +12,9 @@ namespace Final.Models
     {
         [Key]
         public int HocPhiId { get; set; }
-        public int DaThanhToan { get; set; }
-        
+        public int SoTien {get;set;}
+        public DateTime NgayThanhToan {get;set;}
+        public DateTime NgayHetHan {get;set;}
         public int HocSinhId { get; set; }
 
         [ForeignKey("HocSinhId")]

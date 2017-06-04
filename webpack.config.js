@@ -11,6 +11,9 @@ module.exports = {
   entry: {
     // Admin app
     'admin/quanLyBaiHoc': './Jsx/admin/QuanLyBaiHoc.jsx',
+    'admin/quanLyHocPhi': './Jsx/admin/QuanLyHocPhi.jsx',
+    'admin/quanLyToanVuiMoiNgay': './Jsx/admin/QuanLyToanVuiMoiNgay.jsx',
+    'admin/tinhChinh': './Jsx/admin/TinhChinh.jsx',
     // User app
     'user/commentBox': './Jsx/user/CommentBox.jsx',
     'user/exerciseBox': './Jsx/user/ExcerciseBox.jsx'
@@ -32,6 +35,11 @@ module.exports = {
       }
     ]
   },
+  // resolve: {
+  //   alias: {
+  //     'jquery-ui': 'jquery-ui-dist/jquery-ui.js'
+  //   }
+  // },
   watch: true
 }
 

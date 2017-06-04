@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import $ from 'jquery';
 
 export default class CommentBox extends React.Component {
@@ -15,7 +15,7 @@ export default class CommentBox extends React.Component {
     sendComment(commentValue) {
         let thisCom = this;
         console.log(this.props.author);
-        $.post("/Ajax/Comment", {code: 3, idBaiHoc: this.props.idBaiHoc, tacGia: this.props.author, noiDung: commentValue}, function(data){
+        $.post("/Ajax/Comment", {code: 3, idBaiHoc: this.props.idBaiHoc, tacGia: this.props.author, noiDung: commentValue, hinh: this.props.authorImage}, function(data){
             console.log(data);
             let change = thisCom.state.idListComment;
             change.unshift({id: data});
@@ -27,6 +27,18 @@ export default class CommentBox extends React.Component {
         return (
             <div>
                 <div>
+                    <WriteComment
+                        idBaiHoc = {this.props.idBaiHoc}
+                        key={0}
+                        ajaxURL={this.props.ajaxURL} 
+                        sendComment={this.sendComment}
+                        />
+                </div>
+                <br />
+                <CSSTransitionGroup
+                transitionName="example"
+                transitionEnterTimeout={800}
+                transitionLeaveTimeout={800}>
                     {
                         this.state.idListComment.map((obj,index) => {
                             return <Comment 
@@ -35,15 +47,8 @@ export default class CommentBox extends React.Component {
                                 ajaxURL={this.props.ajaxURL} />
                         })
                     }
-                </div>
-                <div>
-                        <WriteComment
-                            idBaiHoc = {this.props.idBaiHoc}
-                            key={0}
-                            ajaxURL={this.props.ajaxURL} 
-                            sendComment={this.sendComment}
-                            />
-                </div>
+                </CSSTransitionGroup>
+                
             </div>
         )    
     }
@@ -81,6 +86,7 @@ class Comment extends React.Component {
         super();
         this.state = {
             author: "Loading...",
+            hinh: '',
             comment: "Loading..."
         }
     }
@@ -88,6 +94,8 @@ class Comment extends React.Component {
         return (
             <div className="comment-wrapper">
                 <div className="author">
+                    <img width="32" src={"/images/sample_avatars/" + this.state.hinh} />
+                    &nbsp;
                     {this.state.author}
                 </div>
                 <div className="comment">
@@ -103,15 +111,17 @@ class Comment extends React.Component {
             thisCom.setState({
                 author: data.tacGia,
                 comment: data.noiDung,
+                hinh: data.hinh,
             })
         });
     }
 }
 
-window.renderCommentBox = function(_id, _element, _author){
+window.renderCommentBox = function(_id, _element, _author, _authorImage){
     ReactDOM.render(<CommentBox 
         idBaiHoc={_id} 
         author={_author}
+        authorImage={_authorImage}
          />, document.getElementById(_element));
 };
 

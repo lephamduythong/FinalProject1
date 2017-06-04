@@ -39,6 +39,16 @@ namespace Final.Controllers
                 HttpContext.Session.SetInt32("HocSinhId", hocSinhFound.HocSinhId);
                 HttpContext.Session.SetString("HocSinhHoTen", hocSinhFound.HoTen);
                 HttpContext.Session.SetString("HocSinhHinh", hocSinhFound.Hinh);
+                HttpContext.Session.SetString("HocSinhNgaySinh", hocSinhFound.NgaySinh.ToString("dd/MM/yyyy"));
+                HttpContext.Session.SetString("HocSinhEmail", hocSinhFound.Email);
+                
+
+                var hetHan = csdl.HocPhis
+                    .Where(h => h.HocSinhId == hocSinhFound.HocSinhId)
+                    .OrderByDescending(h => h.NgayHetHan)
+                    .First();
+
+                HttpContext.Session.SetString("NgayHetHan", hetHan.NgayHetHan.ToString());
                 
                 // HttpContext.Session.Set<List<string>>("HocSinh", hocSinhInfo); // HocSinhId
                 return RedirectToAction("Index", "Home");   
@@ -61,29 +71,47 @@ namespace Final.Controllers
         {
             HttpContext.Session.Clear();
 
+            var tuoi = (DateTime.Now.Year - hocSinh.NgaySinh.Year);
+            
+            if (csdl.HocSinhs.Any(h => h.Email.Equals(hocSinh.Email)))
+            {
+                ViewData["DuplicateEmailError"] = "Email đã được sử dụng";
+                return View(hocSinh);
+            }
+        
+            if (confirmPassword == null)
+            {
+                ViewData["ConfirmPasswordError"] = "Mật khẩu nhập lại không được bỏ trống";
+                return View(hocSinh);
+            }
+
             if (ModelState.IsValid)
             {
-                if (DateTime.Compare(hocSinh.NgaySinh, DateTime.Now.AddYears(-5)) == 1)
+                if (DateTime.Compare(hocSinh.NgaySinh, DateTime.Now.AddYears(-5)) == 1 || tuoi > 100)
                 {
-                    ViewData["NgaySinhError"] = "Chỉ chấp nhận học sinh từ 5 tuổi trở lên ngày sinh không được vượt quá hiện tại";
+                    ViewData["NgaySinhError"] = "Chỉ chấp nhận học sinh từ 5 tuổi trở lên và 100 tuổi trở xuống hoặc ngày sinh không được vượt quá hiện tại";
+                    return View(hocSinh);
                 }
                 if (!hocSinh.Password.Equals(confirmPassword))
                 {
                     ViewData["ConfirmPasswordError"] = "Mật khẩu nhập lại không khớp";
+                    return View(hocSinh);
                 }
                 csdl.HocSinhs.Add(hocSinh);
                 csdl.SaveChanges();
-                return RedirectToAction("Index");
+                return View("RegisterSucessfull");
             }
 
-            if (!hocSinh.Password.Equals(confirmPassword))
+            
+            else  if (!hocSinh.Password.Equals(confirmPassword))
             {
                 ViewData["ConfirmPasswordError"] = "Mật khẩu nhập lại không khớp";
             }
 
-            if (DateTime.Compare(hocSinh.NgaySinh, DateTime.Now.AddYears(-5)) == 1)
+            if (DateTime.Compare(hocSinh.NgaySinh, DateTime.Now.AddYears(-5)) == 1 || tuoi > 100)
             {
-                ViewData["NgaySinhError"] = "Chỉ chấp nhận học sinh từ 5 tuổi trở lên ngày sinh không được vượt quá hiện tại";
+                ViewData["NgaySinhError"] = "Chỉ chấp nhận học sinh từ 5 tuổi trở lên và 100 tuổi trở xuống hoặc ngày sinh không được vượt quá hiện tại";
+                return View(hocSinh);
             }
 
             return View(hocSinh);
@@ -95,6 +123,36 @@ namespace Final.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index","HocSinhAuthentication");
         }
+
+        [HttpGet]
+        public IActionResult EditInformation() 
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult EditInformation(string HoTen, string NgaySinh, string Hinh) 
+        {
+            if (String.IsNullOrWhiteSpace(HoTen) || String.IsNullOrWhiteSpace(NgaySinh))
+            {
+                ViewData["Error"] = "Thông tin thay đổi không được bỏ trống";
+                return View();
+            }
+
+            int hocSinhId = (int)HttpContext.Session.GetInt32("HocSinhId");
+            var foundHocSinh = csdl.HocSinhs.First(h => h.HocSinhId == hocSinhId);
+            foundHocSinh.HoTen = HoTen;
+            foundHocSinh.NgaySinh = DateTime.Parse(NgaySinh);
+            foundHocSinh.Hinh = Hinh;
+            csdl.SaveChanges();
+
+            HttpContext.Session.SetString("HocSinhHoTen", foundHocSinh.HoTen);
+            HttpContext.Session.SetString("HocSinhHinh", foundHocSinh.Hinh);
+            HttpContext.Session.SetString("HocSinhNgaySinh", foundHocSinh.NgaySinh.ToString("dd/MM/yyyy"));
+
+            return RedirectToAction("Index","Home");
+        }
+
     }
 
     public static class SessionExtensions

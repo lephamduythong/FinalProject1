@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import $ from 'jquery';
 
 export const _TOKEN = $('input[name="__RequestVerificationToken"]').val();
@@ -55,6 +55,10 @@ export default class QuanLyChuong extends React.Component {
                     thisCom.state.idListChuongLop2.unshift({ id: data });
                     thisCom.setState({ idListChuongLop2: thisCom.state.idListChuongLop2 });
                     break;
+                case 3:
+                    thisCom.state.idListChuongLop3.unshift({ id: data });
+                    thisCom.setState({ idListChuongLop2: thisCom.state.idListChuongLop3 });
+                    break;
             }
         });
     }
@@ -77,6 +81,9 @@ export default class QuanLyChuong extends React.Component {
             case 2:
                 idListChuongLop = this.state.idListChuongLop2;
                 break;
+            case 3:
+                idListChuongLop = this.state.idListChuongLop3;
+                break;
         }
         // console.log(idListChuongLop);
 
@@ -98,6 +105,9 @@ export default class QuanLyChuong extends React.Component {
             case 2:
                 this.setState({ idListChuongLop2: idListChuongLop });
                 break;
+            case 3:
+                this.setState({ idListChuongLop3: idListChuongLop });
+                break;
         }
     }
 
@@ -107,10 +117,11 @@ export default class QuanLyChuong extends React.Component {
                 <div className="lop-wrapper">
                     <h2>Lớp 1</h2>
                     <input type="text" ref="txtThemChuong1" />
-                    <button className="btn btn-primary" onClick={() => this.add(1)}>Thêm một chương</button>
-                    <ReactCSSTransitionGroup transitionName="slide"
-                        transitionEnterTimeout={500}
-                        transitionLeaveTimeout={500}>
+                    <button className="btn btn-warning" onClick={() => this.add(1)}>Thêm một chương</button>
+                    <CSSTransitionGroup 
+                    transitionName="example"
+                    transitionEnterTimeout={800}
+                    transitionLeaveTimeout={800}>
                         {
                             this.state.idListChuongLop1.map((obj, index) => {
                                 return (<Chuong key={obj.id}
@@ -119,17 +130,17 @@ export default class QuanLyChuong extends React.Component {
                                     delete={this.delete} />)
                             })
                         }
-                    </ReactCSSTransitionGroup>
+                    </CSSTransitionGroup>
                 </div>
-
+                
                 <div className="lop-wrapper">
                     <h2>Lớp 2</h2>
                     <input type="text" ref="txtThemChuong2" />
-                    <button className="btn btn-primary" onClick={() => this.add(2)}>Thêm một chương</button>
-                    <ReactCSSTransitionGroup
-                        transitionName="fade"
-                        transitionEnterTimeout={500}
-                        transitionLeaveTimeout={500}>
+                    <button className="btn btn-warning" onClick={() => this.add(2)}>Thêm một chương</button>
+                    <CSSTransitionGroup
+                    transitionName="example"
+                    transitionEnterTimeout={800}
+                    transitionLeaveTimeout={800}>
                         {
                             this.state.idListChuongLop2.map((obj, index) => {
                                 return (<Chuong key={obj.id}
@@ -138,26 +149,26 @@ export default class QuanLyChuong extends React.Component {
                                     delete={(idLop, idChuong) => this.delete(idLop, idChuong)} />)
                             })
                         }
-                    </ReactCSSTransitionGroup>
+                    </CSSTransitionGroup>
                 </div>
 
                 <div className="lop-wrapper">
                     <h2>Lớp 3</h2>
                     <input type="text" ref="txtThemChuong3" />
-                    <button className="btn btn-primary" onClick={() => this.add(3)}>Thêm một chương</button>
-                    <ReactCSSTransitionGroup
-                        transitionName="fade"
-                        transitionEnterTimeout={500}
-                        transitionLeaveTimeout={500}>
+                    <button className="btn btn-warning" onClick={() => this.add(3)}>Thêm một chương</button>
+                    <CSSTransitionGroup
+                        transitionName="example"
+                        transitionEnterTimeout={800}
+                        transitionLeaveTimeout={800}>
                         {
                             this.state.idListChuongLop3.map((obj, index) => {
                                 return (<Chuong key={obj.id}
                                     idChuong={obj.id}
-                                    idLop="2"
+                                    idLop="3"
                                     delete={(idLop, idChuong) => this.delete(idLop, idChuong)} />)
                             })
                         }
-                    </ReactCSSTransitionGroup>
+                    </CSSTransitionGroup>
                 </div>
             </div>
         )
@@ -227,11 +238,11 @@ class Chuong extends React.Component {
                 <button className="btn btn-primary" onClick={(idLop, idChuong) => { this.props.delete(parseInt(this.props.idLop), this.props.idChuong) }}>Xóa chương</button>
                 <br />
                 <input type="text" ref="txtThemBaiHoc" />
-                <button className="btn btn-primary" onClick={() => this.add()}>Thêm một bài học</button>
-                <ReactCSSTransitionGroup
-                    transitionName="slide"
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={500}>
+                <button className="btn btn-warning" onClick={() => this.add()}>Thêm một bài học</button>
+                <CSSTransitionGroup
+                    transitionName="example"
+                    transitionEnterTimeout={800}
+                    transitionLeaveTimeout={800}>
                     {
                         this.state.idListBaiHoc.map((obj, index) => {
                             return <BaiHoc
@@ -242,7 +253,7 @@ class Chuong extends React.Component {
                         })
 
                     }
-                </ReactCSSTransitionGroup>
+                </CSSTransitionGroup>
             </div>
         )
     }
@@ -295,7 +306,7 @@ class BaiHoc extends React.Component {
         return (
             <div className="baihoc-wrapper">
                 <h4>{this.state.ten}</h4>
-                <button className="btn btn-primary" onClick={() => { this.props.delete(this.props.idBaiHoc) }}>Xóa bài học</button>
+                <button className="btn btn-danger" onClick={() => { this.props.delete(this.props.idBaiHoc) }}>Xóa bài học</button>
                 <BaiHocChiTiet
                     idChuong={this.props.idChuong}
                     idBaiHoc={this.props.idBaiHoc}
@@ -303,12 +314,17 @@ class BaiHoc extends React.Component {
                     loadedContent={this.state.loadedContent}
                 />
                 <input type="text" ref="txtThemBaiTap" />
-                <button className="btn btn-primary" onClick={this.add.bind(this)}>Thêm một bài tập</button>
-                {
-                    this.state.idListBaiTap.map((obj,index)=>{
-                        return <BaiTap key={obj.id} idBaiTap={obj.id} delete={this.delete}/>
-                    })
-                }
+                <button className="btn btn-warning" onClick={this.add.bind(this)}>Thêm một bài tập</button>
+                <CSSTransitionGroup
+                transitionName="example"
+                transitionEnterTimeout={800}
+                transitionLeaveTimeout={800}>
+                    {
+                        this.state.idListBaiTap.map((obj,index)=>{
+                            return <BaiTap key={obj.id} idBaiTap={obj.id} delete={this.delete}/>
+                        })
+                    }
+                </CSSTransitionGroup>
             </div>
         )
     }
@@ -391,10 +407,14 @@ class BaiTap extends React.Component {
                     this.state.showContent
                     ?
                     <div>
-                        <button className="btn btn-primary" onClick={this.addQuestion.bind(this)}>Thêm một câu hỏi</button>
+                        <button className="btn btn-warning" onClick={this.addQuestion.bind(this)}>Thêm một câu hỏi</button>
                         <br />
                         {this.state.ten}
                         <br />
+                        <CSSTransitionGroup
+                            transitionName="example"
+                            transitionEnterTimeout={800}
+                            transitionLeaveTimeout={800}>
                         {
                             this.state.idListCauHoi.map((obj, index) => {
                                 return <CauHoi 
@@ -403,11 +423,12 @@ class BaiTap extends React.Component {
                                 deleteQuestion={this.deleteQuestion} />
                             })
                         }
+                        </CSSTransitionGroup>
                     </div>
                     :
                     ""
                 }
-                <button className="btn btn-primary" onClick={() => {this.props.delete(this.props.idBaiTap)}}>Xóa bài tập</button>
+                <button className="btn btn-danger" onClick={() => {this.props.delete(this.props.idBaiTap)}}>Xóa bài tập</button>
             </div>
         )
     }
@@ -610,7 +631,7 @@ class CauHoi extends React.Component {
                     <br />
                     <button className="btn btn-primary" onClick={this.editEnter.bind(this)}>Sửa nội dung câu hỏi</button>
                 </div>
-                <button className="btn btn-primary" onClick={() => {this.props.deleteQuestion(this.props.idCauHoi)}}>Xóa câu hỏi</button>
+                <button className="btn btn-danger" onClick={() => {this.props.deleteQuestion(this.props.idCauHoi)}}>Xóa câu hỏi</button>
             </div>
         )
     }

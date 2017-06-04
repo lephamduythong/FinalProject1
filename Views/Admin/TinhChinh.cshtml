@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>Admin's Page</title>
+        <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/css/admin/main.css"/> 
+        <link rel="stylesheet" href="/css/admin/lib/jquery-ui.css">
+        <style>
+            /* The switch - the box around the slider */
+
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 34px;
+            }
+            /* Hide default HTML checkbox */
+
+            .switch input {
+                display: none;
+            }
+            /* The slider */
+
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 26px;
+                width: 26px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+            input:checked+.slider {
+                background-color: orange;
+            }
+
+            input:focus+.slider {
+                box-shadow: 0 0 1px orange;
+            }
+
+            input:checked+.slider:before {
+                -webkit-transform: translateX(26px);
+                -ms-transform: translateX(26px);
+                transform: translateX(26px);
+            }
+            /* Rounded sliders */
+
+            .slider.round {
+                border-radius: 34px;
+            }
+
+            .slider.round:before {
+                border-radius: 50%;
+            }
+
+            .config-title {
+                font-size: 32px;
+            }
+            
+        </style>
+    </head>
+    <body>
+        @Html.AntiForgeryToken()
+        <div class="header">
+            Admin's Page
+        </div>
+        <div class="container-fluid">
+            <div class="col-xs-12 col-sm-2">
+                <div class="list-group">
+                    <a href="/Admin/QuanLyBaiHoc" class="list-group-item">
+                        Quản lý bài học
+                    </a>
+                    <a href="/Admin/QuanLyHocPhi" class="list-group-item">
+                        Quản lý học phí
+                    </a> 
+                    <a href="#" class="list-group-item disabled">
+                        Quản lý toán vui mỗi ngày
+                    </a>   
+                    <a href="#" class="list-group-item active">
+                        Tinh chỉnh
+                    </a> 
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-10">
+                <div id="app" class="app"></div>
+            </div>
+        </div>
+        <script src="/js/admin/tinhChinh.js"> </script>
+    </body>
+</html>
+
+

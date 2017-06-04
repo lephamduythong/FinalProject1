@@ -17,6 +17,7 @@ namespace Final.Models
         [ForeignKey("ChuongId")]
         public virtual Chuong Chuong { get; set; }
         public string NoiDung { get; set; }
+
         public virtual ICollection<BinhLuan> BinhLuans { get; set; }
         public virtual ICollection<HocSinhBaiHoc> HocSinhBaiHocs { get; set; }
         public virtual ICollection<BaiTap> BaiTaps { get; set; }

@@ -8,7 +8,6 @@
 @section myCss {
     <link href="/css/baihoc.css" rel="stylesheet" />
 }
-
 <h1 class="hidden">Nội dung bài học</h1>
 <!--<ol class="breadcrumb">
     <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
@@ -19,24 +18,27 @@
         @if (Context.Session.GetInt32("HocSinhId") != null)
         {
             <div class="well">
+                <div>
+                    <a href="/HocSinhAuthentication/EditInformation">
+                        <img style="float: right;" width="16" src="/images/config.png" />
+                    </a>    
+                </div>
                 <div class="avatar">
-                    <img width="64" src="/Images/fox.svg" alt="Avatar" />
+                    <img width="64" src="/images/sample_avatars/@Context.Session.GetString("HocSinhHinh")" alt="Avatar" />
                 </div>
                 <div style="color: red; text-align: center; font-weight: bold; font-size: 125%; margin: 5px 0 5px 0">
-                    Trẻ trâu
+                    @Context.Session.GetString("HocSinhHoTen")
                 </div>
-                <div>
-                    Hoàn thành
+                <div style="text-align: center;">
+                    Email: @Context.Session.GetString("HocSinhEmail")
                 </div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                        <span class="sr-only">45% Complete</span>
-                    </div>
-                </div>
-                <div>
-
+                <div style="text-align: center;">
+                    Ngày sinh: @Context.Session.GetString("HocSinhNgaySinh")
                 </div>
             </div>
+            <script>
+
+            </script>
         }
         <div>
             <img src="/images/ad/ad.png" class="img-responsive" />
@@ -58,6 +60,22 @@
             <img class="img-responsive" src="/images/lop@{WriteLiteral(ViewBag.LopId);}.jpg" alt="lopId@{WriteLiteral(ViewBag.LopId);}" />
             @*table*@
             <div class="container-fluid">
+                @{
+                    var count = 1;
+                    var chuaHetHan = true;
+
+                    if (Context.Session.GetString("NgayHetHan") != null)
+                    {
+                        DateTime currentDate = DateTime.Now;
+                        DateTime expiredDate = DateTime.Parse(Context.Session.GetString("NgayHetHan"));
+                        var test = DateTime.Compare(currentDate, expiredDate);
+                        
+                        if (test == 1)
+                        {
+                            chuaHetHan = false;
+                        }
+                    }
+                }
                 @foreach (var chuong in Model)
                 {
                     <article>
@@ -69,50 +87,64 @@
                         <div id="collapse_@chuong.ChuongId" class="panel-collapse collapse">
                         @foreach (var baiHoc in chuong.BaiHocs)
                         {
-                            <section class="col-xs-12 col-sm-6">
-                                <a href="@Url.Action("BaiHocChiTiet", "Home", new {baiHocId = baiHoc.BaiHocId, lopId = ViewBag.LopId})">
-                                    <h3>@baiHoc.Ten</h3>
-                                </a>
-                                @if (Context.Session.GetInt32("HocSinhId") != null)
-                                {
-                                    CoSoDuLieu csdl = new CoSoDuLieu();
-                                    var idHocSinh = Context.Session.GetInt32("HocSinhId");
-                                    var idListBaiTap = (from baiTap in csdl.BaiTaps
-                                                        where baiTap.BaiHocId == baiHoc.BaiHocId
-                                                        select new
-                                                        {
-                                                            BaiTapId = baiTap.BaiTapId
-                                                        }).ToList();
-                                    int score = 0;
-                                    foreach (var baiTap in idListBaiTap)
-                                    {
-                                        var scoreRow = csdl.HocSinhBaiTaps.Find(idHocSinh, baiTap.BaiTapId);
-                                        if (scoreRow != null)
-                                        {
-                                            score += scoreRow.HoanThanh;
-                                        }
-                                    }
-                                    if (idListBaiTap.Any())
-                                    {
-                                        score = score / idListBaiTap.Count();
-                                    }
-
-                                    <h4> 
-                                        <a href="@Url.Action("BaiTap",new {baiHocId = baiHoc.BaiHocId})">
-                                            Danh sách bài tập
+                                <section class="col-xs-12 col-sm-6">
+                                        <a href="@Url.Action("BaiHocChiTiet", "Home", new {baiHocId = baiHoc.BaiHocId, lopId = ViewBag.LopId})">
+                                            <h3>@baiHoc.Ten</h3>
                                         </a>
-                                    </h4>
-                                    <div class="progress">
-                                        <div class="progress-bar active" role="progressbar" aria-valuenow="@score" aria-valuemin="0" aria-valuemax="100" style="width: @score%">
-                                            <span class="sr-only"></span>
+                                    @if (Context.Session.GetInt32("HocSinhId") != null)
+                                    {
+                                        CoSoDuLieu csdl = new CoSoDuLieu();
+                                        var idHocSinh = Context.Session.GetInt32("HocSinhId");
+                                        var idListBaiTap = (from baiTap in csdl.BaiTaps
+                                                            where baiTap.BaiHocId == baiHoc.BaiHocId
+                                                            select new
+                                                            {
+                                                                BaiTapId = baiTap.BaiTapId
+                                                            }).ToList();
+                                        int score = 0;
+                                        foreach (var baiTap in idListBaiTap)
+                                        {
+                                            var scoreRow = csdl.HocSinhBaiTaps.Find(idHocSinh, baiTap.BaiTapId);
+                                            if (scoreRow != null)
+                                            {
+                                                score += scoreRow.HoanThanh;
+                                            }
+                                        }
+                                        if (idListBaiTap.Any())
+                                        {
+                                            score = score / idListBaiTap.Count();
+                                        }
+
+                                        <h4> 
+                                            <a href="@Url.Action("BaiTap",new {baiHocId = baiHoc.BaiHocId})">
+                                                Danh sách bài tập
+                                            </a>
+                                        </h4>
+                                        <div class="progress">
+                                            <div class="progress-bar active" role="progressbar" aria-valuenow="@score" aria-valuemin="0" aria-valuemax="100" style="width: @score%">
+                                                <span class="sr-only"></span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                </section>
+                                
+                                @if (!chuaHetHan && count == 3)
+                                {
+                                    break;
                                 }
-                            </section>
+                                count++;
                         }
                         </div>
+                        
                     </article>
+                    
                     <div class="clearfix"></div>
+                    @if (!chuaHetHan)
+                    {
+                        <div style="color: red;">
+                            Để học thêm các bài học mới, bạn cần phải đăng ký mua VIP
+                        </div>
+                    }    
                 }
                 <div>
                     <a name="point" > </a>

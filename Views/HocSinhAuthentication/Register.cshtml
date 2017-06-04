@@ -33,17 +33,20 @@
                     <!--<input name="Email" type="text" class="form-control" />-->
                     @Html.TextBoxFor(model => model.Email, new {@class = "form-control"})
                     @Html.ValidationMessageFor(model => model.Email, String.Empty ,new { @class =  "errorMessage"})
+                    <div style="color: red;">
+                        @ViewData["DuplicateEmailError"]
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="">Mật khẩu: *</label>
-                    @Html.TextBoxFor(model => model.Password, new {@class =  "form-control"})
+                    @Html.PasswordFor(model => model.Password, new {@class =  "form-control"})
                     @Html.ValidationMessageFor(model => model.Password, String.Empty, new {@class = "errorMessage"})
                     <!--<input name="Password" type="text" class="form-control" />-->
                 </div>
                 <div class="form-group">
                     <label for="">Nhập lại mật khẩu: *</label>
-                    <input type="text" class="form-control" name="ConfirmPassword" />
-                    <div style="color: red; font-size:125%;">
+                    <input type="password" class="form-control" name="ConfirmPassword" />
+                    <div style="color: red;">
                         @ViewData["ConfirmPasswordError"]
                     </div>
                 </div>
@@ -62,11 +65,12 @@
                     <p style="font-weight: bold;">Chọn một ảnh đại diện:</p>
                     <div class="avatar-choosing">
                         <img id="ava_1" class="bordered-avatar" src="/images/sample_avatars/1.png" alt="1.png" />
-                        <img id="ava2" src="/images/sample_avatars/2.png" alt="2.png" />
-                        <img id="ava3" src="/images/sample_avatars/3.png" alt="3.png" />
-                        <img id="ava4" src="/images/sample_avatars/4.png" alt="4.png" />                        
+                        <img id="ava_2" src="/images/sample_avatars/2.png" alt="2.png" />
+                        <img id="ava_3" src="/images/sample_avatars/3.png" alt="3.png" />
+                        <img id="ava_4" src="/images/sample_avatars/4.png" alt="4.png" />                        
                     </div>
                 </div>
+                <input type="hidden" name="Hinh" value="1.png" />
                 <button type="submit" class="btn btn-primary">
                     Đăng ký
                 </button>
@@ -81,8 +85,10 @@
 @section myJs {
     <script>
         $(document).ready(function(){
-            $('.avatar-choosing img').click(function() {
-                alert('clgt');
+            $('.avatar-choosing img').click(function() { //  
+                $('.avatar-choosing img').removeClass('bordered-avatar');
+                $(this).addClass('bordered-avatar');
+                $('input[name="Hinh"]').prop('value',(parseInt($(this).index()) + 1) + '.png');
             });
         });
     </script>

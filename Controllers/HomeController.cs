@@ -123,9 +123,9 @@ namespace Final.Controllers
             return View();
         }
 
-        public IActionResult HuongDan()
+        public IActionResult HuongDan(int code = 1)
         {
-            return View();
+            return View("HuongDan");
         }
     }
 }

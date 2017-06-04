@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Admin's Page</title>
+        <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/css/admin/main.css"/> 
+        <link rel="stylesheet" href="/css/admin/lib/jquery-ui.css">
+    </head>
+    <body>
+        @Html.AntiForgeryToken()
+        <div class="header">
+            Admin's Page
+        </div>
+        <div class="container-fluid">
+            <div class="col-xs-12 col-sm-2">
+                <div class="list-group">
+                    <a href="/Admin/QuanLyBaiHoc" class="list-group-item">
+                        Quản lý bài học
+                    </a>
+                    <a href="/Admin/QuanLyHocPhi" class="list-group-item active">
+                        Quản lý học phí
+                    </a> 
+                    <a href="#" class="list-group-item disabled">
+                        Quản lý toán vui mỗi ngày
+                    </a>   
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-10">
+                <div id="app" class="app"></div>
+            </div>
+        </div>
+        <script src="/lib/jquery/dist/jquery.min.js"></script>
+        <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="/lib/tiny/prototype.js"></script>
+        <script src="/lib/ckeditor/ckeditor.js"></script>
+        <script src="/js/admin/quanLyHocPhi.js"></script>
+    </body>
+</html>
+
+

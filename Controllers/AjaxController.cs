@@ -36,6 +36,7 @@ namespace Final.Controllers
                     {
                         tacGia = binhLuan.TacGia,
                         noiDung = binhLuan.NoiDung,
+                        hinh = binhLuan.Hinh,
                     }).First();
                            
                 return Json(result);
@@ -55,6 +56,7 @@ namespace Final.Controllers
                     TacGia = collection["tacGia"],
                     NoiDung = collection["noiDung"],
                     BaiHocId = idBaiHoc,
+                    Hinh = collection["hinh"],
                     Order = newOrder
                 };
                 csdl.BinhLuans.Add(newBinhLuan);

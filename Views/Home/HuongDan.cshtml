@@ -1,0 +1,85 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="modal-content">
+    <div class="container-fluid">
+        <ul id="huongdan-menu" class="nav nav-tabs">
+            <li class="active">
+                <a style="cursor: pointer">Thanh toán</a>
+            </li>
+            <li>
+                <a style="cursor: pointer">Đăng ký</a>
+            </li>
+            <li>
+                <a style="cursor: pointer">Học và làm bài tập</a>
+            </li>
+        </ul>
+        <div id="menu_0">
+            <h3>Phương thức thanh toán</h3>
+            <p>Bạn có thể đóng tiền học thông qua ngân hàng. Sử dụng Internet Banking hoặc ra trực tiếp các ngân
+                hàng.</p>
+            <p>Hoctoan1cong1 hỗ trợ các ngân hàng sau: </p>
+            <div>
+                <img width="128" src="/images/bank/vietcombank.png" alt="Vietcombank" />
+                <p style="font-weight: bold;">Vietcombank</p>
+                <ul>
+                    <li>Số tài khoản: 999 999 999 9999.</li>
+                    <li>Chủ tài khoản: Lê Phạm Duy Thông</li>
+                    <li>Chi nhánh: Cộng Hoà, Tân Bình, HCM</li>
+                </ul>
+            </div>
+            <div>
+                <img width="128" src="/images/bank/acbbank.png" alt="ACBBank" />
+                <p style="font-weight: bold;">ACB bank</p>
+                <ul>
+                    <li>Số tài khoản: 999 999 999 9999.</li>
+                    <li>Chủ tài khoản: Lê Phạm Duy Thông</li>
+                    <li>Chi nhánh: Cộng Hoà, Tân Bình, HCM</li>
+                </ul>
+            </div>
+            <div>
+                <img width="128" src="/images/bank/sacombank.png" alt="Sacombank" />
+                <p style="font-weight: bold;">Sacombank</p>
+                <ul>
+                    <li>Số tài khoản: 999 999 999 9999.</li>
+                    <li>Chủ tài khoản: Lê Phạm Duy Thông</li>
+                    <li>Chi nhánh: Cộng Hoà, Tân Bình, HCM</li>
+                </ul>
+            </div>
+            <div>
+                <img width="128" src="/images/bank/agribank.jpg" alt="Agribank" />
+                <p style="font-weight: bold;">Agribank Bank</p>
+                <ul>
+                    <li>Số tài khoản: 999 999 999 9999.</li>
+                    <li>Chủ tài khoản: Lê Phạm Duy Thông</li>
+                    <li>Chi nhánh: Cộng Hoà, Tân Bình, HCM</li>
+                </ul>
+            </div>
+        </div>
+        <div id="menu_1">
+            <h3>Đăng ký thành viên</h3>
+            <p>Tại trang chủ bấm vào liên kết đăng ký như trên hình</p>
+            <img src="/images/guide/register/1.jpg" />
+            <p>Điền các thông tin cần thiết vào form mẫu theo yêu cầu, ví dụ như sau:</p>
+            <img src="/images/guide/register/2.jpg" />
+        </div>
+        <div id="menu_2">
+            <h3>Học và làm bài tập</h3>
+            
+        </div>
+    </div>
+</div>
+
+@section myJs {
+    <script>
+        $(document).ready(function () {
+            $('div[id*="menu_"]').hide();
+            $('#huongdan-menu li').click(function () {
+                $('#huongdan-menu li').removeClass('active');
+                $(this).addClass('active');
+                $('div[id*="menu_"]').hide();
+                $('#menu_' + $(this).index()).fadeIn();
+            });
+        });
+    </script>
+}

@@ -67,6 +67,8 @@ namespace FinalProject.Migrations
 
                     b.Property<int>("Hide");
 
+                    b.Property<string>("Hinh");
+
                     b.Property<string>("NoiDung");
 
                     b.Property<int>("Order");
@@ -135,13 +137,17 @@ namespace FinalProject.Migrations
                     b.Property<int>("HocPhiId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("DaThanhToan");
-
                     b.Property<int>("Hide");
 
                     b.Property<int>("HocSinhId");
 
+                    b.Property<DateTime>("NgayHetHan");
+
+                    b.Property<DateTime>("NgayThanhToan");
+
                     b.Property<int>("Order");
+
+                    b.Property<int>("SoTien");
 
                     b.HasKey("HocPhiId");
 

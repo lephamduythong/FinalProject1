@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <style>
+            body {
+                padding: 50px;
+            }
+            .box {
+                display: inline-block;
+                background: pink;
+                width: 200px;
+                height: 200px;
+                position: relative;
+                /* animation: name duration timing-function delay iteration-count direction fill-mode play-state */
+                animation-name: myframes;
+                animation-duration: 1s;
+                animation-timing-function: ease-in-out;
+                animation-delay: 0s;
+                animation-iteration-count: 1; /* infinite */
+                animation-direction: normal; /* normal, reverse, alternate */
+                animation-fill-mode: forwards;
+                animation-play-state: running; /* paused */
+            }
+            .box.is-paused {
+                animation-play-state: paused; /* paused */
+            }
+            @keyframes myframes {
+                0% {
+                    transform: scale(0)
+                }
+
+                /*
+                /* range 
+                30%, 70% {
+                    width: 400px;
+                }
+                */
+                100% {
+                    transform: scale(1);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            // $('.box').on('click',function(){
+            //     $(this).toggleClass('is-paused');
+            // });
+            $('html').on('click',function(){
+                $(this).find('body').append('<div class="box">Share</div>');
+            });
+        </script>
+    </body>
+</html>

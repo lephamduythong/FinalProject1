@@ -6,6 +6,29 @@
 
 @section myCss {
     <link href="/css/baihoc.css" rel="stylesheet" />
+    <style>
+        .example-enter {
+            opacity: 0.5;
+            transform: translate(200px, 200px) rotate(180deg);
+        }
+
+        .example-enter.example-enter-active {
+            opacity: 1;
+            transform: translate(0, 0) rotate(0);
+            transition: all 800ms ease-in-out;
+        }
+
+        .example-leave {
+            opacity: 1;
+            transform: translate(0, 0) rotate(0);
+        }
+
+        .example-leave.example-leave-active {
+            opacity: 0;
+            transform: translate(-200px, -200px) rotate(-180deg);
+            transition: all 800ms ease-in-out;
+        }
+    </style>
 }
 
 <h1 class="hidden">Nội dung bài học</h1>
@@ -19,24 +42,27 @@
         @if (Context.Session.GetInt32("HocSinhId") != null)
         {
             <div class="well">
+                <div>
+                    <a href="/HocSinhAuthentication/EditInformation">
+                        <img style="float: right;" width="16" src="/images/config.png" />
+                    </a>    
+                </div>
                 <div class="avatar">
-                    <img width="64" src="/Images/fox.svg" alt="Avatar" />
+                    <img width="64" src="/images/sample_avatars/@Context.Session.GetString("HocSinhHinh")" alt="Avatar" />
                 </div>
                 <div style="color: red; text-align: center; font-weight: bold; font-size: 125%; margin: 5px 0 5px 0">
-                    Trẻ trâu
+                    @Context.Session.GetString("HocSinhHoTen")
                 </div>
-                <div>
-                    Hoàn thành
+                <div style="text-align: center;">
+                    Email: @Context.Session.GetString("HocSinhEmail")
                 </div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                        <span class="sr-only">45% Complete</span>
-                    </div>
-                </div>
-                <div>
-
+                <div style="text-align: center;">
+                    Ngày sinh: @Context.Session.GetString("HocSinhNgaySinh")
                 </div>
             </div>
+            <script>
+
+            </script>
         }
         <div>
             <img src="/images/ad/ad.png" class="img-responsive" />
@@ -86,11 +112,17 @@
     <script>
         @{
             var author = @Html.Raw(@Context.Session.GetString("HocSinhHoTen"));
+            var authorImage = @Html.Raw(@Context.Session.GetString("HocSinhHinh"));
         }
         let _author = '@author';
+        let _authorImage = '@authorImage';
+        
+        console.log(_authorImage);
+        
         renderCommentBox(@Model.BaiHocId,
             "commentBox",
             _author,
+            _authorImage,
             );
     </script>
 }

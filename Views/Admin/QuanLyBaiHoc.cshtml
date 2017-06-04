@@ -4,6 +4,29 @@
         <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
         <link rel="stylesheet" href="/css/admin/main.css"/> 
+        <style>
+            .example-enter {
+                opacity: 0.5;
+                transform: translate(200px, 200px) rotate(180deg);
+            }
+
+            .example-enter.example-enter-active {
+                opacity: 1;
+                transform: translate(0, 0) rotate(0);
+                transition: all 800ms ease-in-out;
+            }
+
+            .example-leave {
+                opacity: 1;
+                transform: translate(0, 0) rotate(0);
+            }
+
+            .example-leave.example-leave-active {
+                opacity: 0;
+                transform: translate(-200px, -200px) rotate(-180deg);
+                transition: all 800ms ease-in-out;
+            }
+        </style>
     </head>
     <body>
         @Html.AntiForgeryToken()
@@ -13,13 +36,13 @@
         <div class="container-fluid">
             <div class="col-xs-12 col-sm-2">
                 <div class="list-group">
-                    <a href="#" class="list-group-item active">
+                    <a href="/Admin/QuanLyBaiHoc" class="list-group-item active">
                         Quản lý bài học
                     </a>
-                    <a href="#" class="list-group-item">
+                    <a href="/Admin/QuanLyHocPhi" class="list-group-item">
                         Quản lý học phí
                     </a> 
-                    <a href="#" class="list-group-item">
+                    <a href="/Admin/QuanLyToanVuiMoiNgay" class="list-group-item">
                         Quản lý toán vui mỗi ngày
                     </a>  
                 </div>

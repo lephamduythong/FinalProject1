@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Học và làm bài tập toán</title>
+    <!-- Bootstrap -->
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/lib/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+    <link href="/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="/css/mycss.css" rel="stylesheet">
+    <link href="/css/responsive.css" rel="stylesheet" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="/css/home.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1 class="hidden">Phần đầu</h1>
+            <div class="row header-top">
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <a href="/">
+                        <img width="300" src="/images/logo2.png" alt="Logo" />
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-offset-2 col-sm-7 col-md-offset-4 col-md-5">
+                    <div class="login-register">
+                        <a href="/HocSinhAuthentication">
+                            <img src="/images/login-button.png" alt="Login" />
+                        </a>
+                        <a href="/HocSinhAuthentication/Register">
+                            <img src="/images/register-button.png" alt="Register" />
+                        </a>
+                    </div>
+                    <div class="user">
+                    </div>
+                </div>
+            </div>
+            <nav>
+                <h1 class="hidden">Menu</h1>
+                <div class="nav-menu1">
+                    <div>
+                        <ul class="nav nav-pills">
+                            <li id="nav_grade" style="border-radius: 50px;" role="presentation" class="dropdown col-xs-12 col-md-4">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <img width="32" height="32" src="/images/cap_32.png" alt="Cap" /> Lớp học <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="/Home/BaiHoc?lopId=1">Lớp 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/BaiHoc?lopId=2">Lớp 2</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/BaiHoc?lopId=3">Lớp 3</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/BaiHoc?lopId=4">Lớp 4</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/BaiHoc?lopId=5">Lớp 5</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="col-xs-12 col-md-4" role="presentation">
+                                <a href="#">
+                                    <img width="32" height="32" src="/images/owl.png" alt="Cap" /> Giới thiệu
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="nav-menu2">
+                    <div class="row">
+                        <div class="hidden-xs hidden-sm">
+                            <img src="/images/chick.svg" alt="Chick" />
+                            <img src="/images/pig.svg" alt="Pig" />
+                            <img src="/images/cat.svg" alt="Cat" />
+                            <img src="/images/fox.svg" alt="Fox" />
+                            <img src="/images/tiger.svg" alt="Tiger" />
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <section class="main-section">
+            <h1 class="hidden">Phần nội dung</h1>
+            <div class="modal-content">
+                <div class="container-fluid">
+
+                </div>
+            </div>
+
+        </section>
+    </div>
+    <br />
+    <footer class="row">
+        <div class="col-xs-12 col-sm-4">
+            <ul class="footer-nav">
+                <li>
+                    <a href="#">Lớp 1</a>
+                </li>
+                <li>
+                    <a href="#">Lớp 2</a>
+                </li>
+                <li>
+                    <a href="#">Lớp 3</a>
+                </li>
+                <li>
+                    <a href="#">Lớp 4</a>
+                </li>
+                <li>
+                    <a href="#">Lớp 5</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <div class="footer-address">
+                Số 19, Đường Nguyễn Hữu Thọ, Phường Tân Phong, Quận 7, TP. Hồ Chí Minh.
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <div class="footer-contact">
+                <a href="#">
+                    <i style="color: blue; font-size: 400%;" class="fa fa-facebook-square" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/js/user/myjs.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#huongdan-menu li').click(function () {
+                $('#huongdan-menu li').removeClass('active');
+                $(this).addClass('active');
+                $('div[id*="menu_"]').hide();
+                $('#menu_' + $(this).index()).fadeIn();
+            });
+        });
+    </script>
+</body>
+
+</html>

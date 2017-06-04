@@ -12,20 +12,85 @@ namespace Final.Controllers
     { 
         CoSoDuLieu csdl = new CoSoDuLieu();
         // GET: Admin/Post
+        private Boolean IsLogin() {
+            if (HttpContext.Session.GetString("Admin") != null) 
+            {
+                return true;
+            }
+            return false;
+        }
+
+        [HttpGet]
         public IActionResult Index()
         {
+            if (IsLogin()) 
+            {
+                return View();
+            }
+            return RedirectToAction("Login");
+        }
+        [HttpGet]
+        public IActionResult Login()
+        {
             return View();
+        }
+
+
+
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("Admin");
+            return RedirectToAction("Login");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(string username, string password)
+        {
+            if (username.Equals("root") && password.Equals("password"))
+            {
+                HttpContext.Session.SetString("Admin","OK");
+            }
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
         public IActionResult QuanLyBaiHoc()
         {
+            if (!IsLogin())
+            {
+                return RedirectToAction("Login");
+            }
             return View();
         }
+
+        [HttpGet]
+        public IActionResult QuanLyHocPhi()
+        {
+            if (!IsLogin())
+            {
+                return RedirectToAction("Login");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult TinhChinh()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         public IActionResult QuanLyBaiHoc(IFormCollection collection)
         {
+            if (!IsLogin())
+            {
+                return null;
+            }
+
             int code = Convert.ToInt16(collection["code"]);
             if (code == 1)
             {
@@ -174,8 +239,13 @@ namespace Final.Controllers
         }
 
         [HttpPost]
-        public ActionResult QuanLyBaiTap(IFormCollection collection)
+        public IActionResult QuanLyBaiTap(IFormCollection collection)
         {
+            if (!IsLogin())
+            {
+                return null;
+            }
+
             int code = Convert.ToInt16(collection["code"]);
             if (code == 1)
             {
@@ -321,6 +391,60 @@ namespace Final.Controllers
                 return Json("Deleted");
             }
 
+            return null;
+        }
+
+        [HttpPost]
+        public IActionResult QuanLyHocPhi(IFormCollection collection) {
+            if (!IsLogin())
+            {
+                return null;
+            }
+
+            
+            int code = Convert.ToInt16(collection["code"]);
+            if (code == 1)
+            {
+                var result = csdl.HocPhis.ToList();
+                return Json(result);
+            } else if (code == 2)
+            {
+                var result = csdl.HocSinhs.ToList();
+                return Json(result);
+            } else if (code == 3)
+            {
+                var hocPhiId = Convert.ToInt16(collection["hocPhiId"]);
+                var result = csdl.HocPhis.First(h => h.HocPhiId == hocPhiId);
+                return Json(result);
+            } else if (code == 4)
+            {
+                var hocSinhId = Convert.ToInt16(collection["hocSinhId"]);
+                var result = csdl.HocPhis.Where(h => h.HocSinhId == hocSinhId).ToList();
+                return Json(result);
+            } else if (code == 5)
+            {
+                var hocSinhId = Convert.ToInt16(collection["hocSinhId"]);
+                var soTien = Convert.ToInt16(collection["soTien"]);
+                var ngayThanhToan = DateTime.Parse(collection["ngayThanhToan"]);
+                var ngayHetHan = DateTime.Parse(collection["ngayHetHan"]);
+
+                HocPhi newHocPhi = new HocPhi() {
+                    HocSinhId = hocSinhId,
+                    SoTien = soTien,
+                    NgayThanhToan = ngayThanhToan,
+                    NgayHetHan = ngayHetHan
+                };
+
+                csdl.HocPhis.Add(newHocPhi);
+                csdl.SaveChanges();
+                return Json(newHocPhi.HocPhiId);
+            } else if (code == 6)
+            {
+                var hocPhiId = Convert.ToInt16(collection["hocPhiId"]);
+                csdl.HocPhis.Remove(csdl.HocPhis.First(h => h.HocPhiId == hocPhiId));
+                csdl.SaveChanges();
+                return Json("Deleted");
+            }
             return null;
         }
     }

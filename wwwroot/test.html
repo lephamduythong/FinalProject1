@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <style>
+            body {
+                padding: 50px;
+            }
+            
+            .trigger {
+                width: 200px;
+                height: 200px;
+                border: 20px solid #999;
+                background: url('https://scontent.fsgn2-2.fna.fbcdn.net/v/t1.0-9/18620137_680873698790216_1139937014424972519_n.jpg?oh=2ef63a56ca96a311d8a181c52f79d5de&oe=59EA869E');
+                background-size: 100% 100%;
+            }
+            
+            .box {
+                display: inline-block;
+                background: pink;
+                width: 100%;
+                height: 100%;
+                transition: transform 300ms ease-in-out;
+                pointer-events: none;
+            }
+            .trigger.clicked .box {
+                transform: translate(200px, 200px) rotate(20deg);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="trigger">
+            <div class="box">
+
+            </div>
+            <div class="box">
+
+            </div>
+            <div class="box">
+
+            </div>
+        </div>
+        <script>
+            $('.trigger').on('click', function() {
+                $(this).toggleClass('clicked');
+            });
+        </script>
+    </body>
+</html>

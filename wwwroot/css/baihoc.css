@@ -2,6 +2,10 @@
     padding: 15px;
 }
 
+.noidungchinh {
+    margin-top: 15px;
+}
+
 .chuong h2 {
     font-size: 125%;
     color: crimson;
@@ -39,10 +43,11 @@
     font-weight: bold;
 }
 
+.comment {
+    margin-top: 10px;
+}
+
 .writeComment-wrapper {
     margin-top: 10px;
 }
 
-.noidungchinh {
-    margin-top: 15px;
-}

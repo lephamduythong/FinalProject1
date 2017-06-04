@@ -6,11 +6,47 @@
 }
 
 @{
-    ViewBag.Medals = new string[3] { "gold-medal.png", "silver-medal.png", "bronze-medal.png" };
+    var medals = new string[3] { "gold-medal.png", "silver-medal.png", "bronze-medal.png" };
 }
 
 @section myCss {
     <link href="/css/home.css" rel="stylesheet" />
+}
+
+@{
+    CoSoDuLieu csdl = new CoSoDuLieu();
+    var medalList = new List<string>();
+    var hocSinhList = csdl.HocSinhs;
+    
+    foreach (var hocSinh in hocSinhList)
+    {
+        var sum = 0;
+        var baiTapList = csdl.HocSinhBaiTaps.Where(b => b.HocSinhId == hocSinh.HocSinhId);
+        foreach (var baiTapHoanThanh in baiTapList)
+        {
+            sum += baiTapHoanThanh.HoanThanh;
+        }
+
+        if (medalList.Count >= 0 && medalList.Count <= 2)
+        {
+            medalList.Add(hocSinh.HocSinhId.ToString()+","+sum.ToString());
+            // WriteLiteral(hocSinh.HocSinhId.ToString()+","+sum.ToString() + "<br />");
+        }
+        else 
+        {
+            for (int i = 0; i < medalList.Count; i++) // Max 3
+            {
+                // WriteLiteral(medalList[i]);
+                string[] test =  medalList[i].Split(',');
+                if (Convert.ToInt16(test[1]) < sum)
+                {
+                    medalList[i] = hocSinh.HocSinhId.ToString()+","+sum.ToString();
+                    break;
+                }
+            }
+        }
+        
+    }
 }
 
 <h1 class="hidden">Phần nội dung</h1>
@@ -21,8 +57,7 @@
                 <div class="noi-dung-section">
                     <h2 style="text-align: center;">Bảng vàng <i style="color: orangered" class="fa fa-star-o" aria-hidden="true"></i></h2>
                     <hr />
-                    <div id="test"></div>
-                    <div id="grade_select_home" class="btn-group-justified">
+                    <!--<div id="grade_select_home" class="btn-group-justified">
 
                         <a class="btn btn-default btn-warning">Lớp 1</a>
 
@@ -34,41 +69,49 @@
 
                         <a class="btn btn-default">Lớp 5</a>
 
-                    </div>
+                    </div>-->
                     <div id="bxh_show_home">
-                        @for (int i = 1; i <= 5; i++)
-                        {
-                            <div class="bxh_home_content hidden">
-                                @foreach (string medal in ViewBag.Medals)
+                            <div class="bxh_home_content">
+                                @for (int i = 0; i < 3; i++) 
                                 {
+                                    if (medalList[i] != null)
+                                    {
+                                        string[] test = medalList[i].Split(',');
+                                        var hocSinhId = Convert.ToInt16(test[0]);
+                                        var foundHocSinh = csdl.HocSinhs.First(h => h.HocSinhId == hocSinhId);
+
                                     <div class="bxh_home_item">
                                         <div class="bxh_detail">
                                             <div class="bxh_detail">
-                                                <table>
+                                                <table style="margin-top: 20px;">
                                                     <tr>
-                                                        <td rowspan="4">
-                                                            <img width="50" src="/images/@medal" alt="Gold medal" />
+                                                        <td rowspan="3">
+                                                            <img width="50" src="/images/@medals[i]" alt="Gold medal" />
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td></td>
-                                                        <td class="medal_detail" style="color: #dd5555; font-size: 125%;">Nguyễn Tâm Như</td>
+                                                        <td class="medal_detail" style="color: #dd5555; font-size: 125%;">
+                                                            @foundHocSinh.HoTen
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td></td>
-                                                        <td class="medal_detail" style="color: #92a1bc; font-weight: normal">Lớp 3 - Trường Tiểu học Long Trạch 1, Long An</td>
+                                                        <td class="medal_detail">Điểm hoàn thành: @test[1]</td>
                                                     </tr>
-                                                    <tr>
+                                                    <!--<tr>
                                                         <td></td>
-                                                        <td class="medal_detail">Điểm TB: 100</td>
-                                                    </tr>
+                                                        <td class="medal_detail" style="color: #92a1bc; font-weight: normal">
+
+                                                        </td>
+                                                    </tr>-->
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
+                                    }
                                 }
                             </div>
-                        }
                     </div>
                 </div>
             </section>

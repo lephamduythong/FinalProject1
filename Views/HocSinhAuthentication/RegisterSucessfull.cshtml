@@ -1,0 +1,20 @@
+@{
+    Layout =  "~/Views/Shared/_Layout.cshtml";
+}
+
+@section myCss {
+    <link href="/css/loginrequirement.css" rel="stylesheet" />
+}
+
+<h1 class="hidden">Thông báo</h1>
+<div class="login-requirement">
+    Đăng ký thành công, đang tự động chuyển đến trang đăng nhập...
+</div>
+
+@section myJs {
+    <script>
+        setTimeout(function () {
+            window.location.href = "/HocSinhAuthentication"
+        }, 4000);
+    </script>
+}
